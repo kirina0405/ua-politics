@@ -75,7 +75,7 @@ class DataStorageActor extends Actor with ConfiguredContext {
       db[BSONCollection](deputeeCollectionName).insert(deputee)
   }
 
-  class DeputeeHandler extends BSONDocumentWriter[VoteProject] with BSONDocumentReader[VoteProject] {
+  class VoteProjectHandler extends BSONDocumentWriter[VoteProject] with BSONDocumentReader[VoteProject] {
     override def write(item: VoteProject): BSONDocument =
       BSONDocument("id" -> item.id,
         "name" -> item.name,
@@ -84,7 +84,7 @@ class DataStorageActor extends Actor with ConfiguredContext {
         "registrationDate" -> BSONDateTime(item.registrationDate.atStartOfDay(DataStorageActor.timeZone).toEpochSecond())
       )
 
-    override def read(bson: BSONDocument): Deputee = {
+    override def read(bson: BSONDocument): VoteProject = {
       val id = bson.get("id").get.asInstanceOf[BSONString].value
       val name = bson.get("name").get.asInstanceOf[BSONString].value
       val number = bson.get("number").get.asInstanceOf[BSONString].value
@@ -93,8 +93,9 @@ class DataStorageActor extends Actor with ConfiguredContext {
       val registrationDate: LocalDate = Instant.ofEpochMilli(registrationDateMillis).atZone(DataStorageActor.timeZone).toLocalDate
       new VoteProject(id, name, number, registrationDate, category)
     }
+  }
 
-    class DeputeeHandler extends BSONDocumentWriter[Deputee] with BSONDocumentReader[Deputee] {
+  class DeputeeHandler extends BSONDocumentWriter[Deputee] with BSONDocumentReader[Deputee] {
     override def write(item: Deputee): BSONDocument =
       BSONDocument("firstName" -> item.firstName,
         "lastName" -> item.lastName,
@@ -103,6 +104,7 @@ class DataStorageActor extends Actor with ConfiguredContext {
         "fraction" -> item.fraction,
         "dateOfBirth" -> BSONDateTime(item.dateOfBirth.atStartOfDay(DataStorageActor.timeZone).toEpochSecond())
       )
+
 
     override def read(bson: BSONDocument): Deputee = {
       val firstName: String = bson.get("firstName").get.asInstanceOf[BSONString].value

@@ -7,7 +7,7 @@ import reactivemongo.api.MongoDriver
 import reactivemongo.core.nodeset.Authenticate
 import ua.home.politics.DataStorageActor.SaveDeputee
 import ua.home.politics.DeputeeHtmlProcessorActor.CollectDeputees
-import ua.home.politics.VoteDayCollector.GetTodaysPage
+import ua.home.politics.VoteDayCollector.{CollectTodaysVotes, CollectVotesByDate}
 import ua.home.politics.configuration.Configurator
 import ua.home.politics.model.Deputee
 
@@ -39,7 +39,7 @@ object Main extends App {
 //
 //  new Application
 
-  system.actorOf(Props[VoteDayCollector]) ! GetTodaysPage
+  system.actorOf(Props[VoteDayCollector]) ! CollectVotesByDate(LocalDate.of(2016,11,4))
 
 
 }
