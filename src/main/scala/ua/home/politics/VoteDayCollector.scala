@@ -19,7 +19,7 @@ class VoteDayCollector extends Actor {
 
   val log = Logging(context.system, this)
   val dayLinkXpath = "/body/div[@id='content-all']/div/div/div/div[4]/div/div/div/ul[1]/li/h5[text()=\"{month}\"]/../table/tbody/tr/td/a[text()=\"{day}\"]/@href"
-  val voteLinkXpath = "/body/div[@id='content-all']/div[1]/div/div/div[2]/div/div/table/tbody/tr/td[1]/p/span/span/a/@href"
+  val voteLinkXpath = "/body/div[@id='content-all']/div[1]/div/div/div/div/div/table/tbody/tr/td/p/span/span/a/@href"
 
   val months = Map(1 -> "Січень",
                   2 -> "Лютий",
@@ -68,7 +68,7 @@ class VoteDayCollector extends Actor {
 
     val ref: Array[AnyRef] = cleanHtml.evaluateXPath(voteLinkXpath)
     if (ref.length != 0 ) {
-      log.info("Link for todays day was found: " + ref(0).toString)
+      log.info("Link with vote was found: " + ref(0).toString)
     } else {
       log.info("there is no voting today")
     }

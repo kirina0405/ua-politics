@@ -39,7 +39,7 @@ object Main extends App {
 //
 //  new Application
 
-  system.actorOf(Props[VoteDayCollector]) ! CollectVotesByDate(LocalDate.of(2016,11,4))
+  system.actorOf(Props[VoteDayCollector]) ! CollectVotesByDate(LocalDate.of(2016,11,3))
 
 
 }

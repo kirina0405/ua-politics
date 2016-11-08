@@ -10,6 +10,8 @@ class VoteProject (val id: String,
                    val name: String,
                    val number: String,
                    val registrationDate: LocalDate,
-                   val category: String) {
+                   val category: String,
+                   val votes: List[GroupVoteMeta]
+                  ) {
 
 }
