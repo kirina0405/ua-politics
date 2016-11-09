@@ -91,7 +91,7 @@ class DataStorageActor extends Actor with ConfiguredContext {
       val category = bson.get("category").get.asInstanceOf[BSONString].value
       val registrationDateMillis: Long = bson.get("registrationDate").get.asInstanceOf[BSONDateTime].value
       val registrationDate: LocalDate = Instant.ofEpochMilli(registrationDateMillis).atZone(DataStorageActor.timeZone).toLocalDate
-      new VoteProject(id, name, number, registrationDate, category)
+      new VoteProject(id, name, number, registrationDate, category, null)
     }
   }
 

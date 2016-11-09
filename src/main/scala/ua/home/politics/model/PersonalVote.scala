@@ -1,5 +1,7 @@
 package ua.home.politics.model
 
+import ua.home.politics.model.VoteDecision.VoteDecision
+
 /**
   * User: maksymlabazov 
   * Date: 07/11/2016.

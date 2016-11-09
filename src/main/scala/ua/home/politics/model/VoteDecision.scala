@@ -5,8 +5,9 @@ package ua.home.politics.model
   * Date: 07/11/2016.
   */
 object VoteDecision extends Enumeration {
-  val YES = Value("Yes")
-  val NO = Value("No")
-  val DIDNT_VOTE = Value("Didn't vote")
-  val WAS_ABSENT = Value("Was absent")
+  trait VoteDecision
+  case object YES         extends VoteDecision
+  case object NO          extends VoteDecision
+  case object DIDNT_VOTE  extends VoteDecision
+  case object WAS_ABSENT  extends VoteDecision
 }

@@ -4,10 +4,11 @@ import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
 
-import akka.actor.Actor
+import akka.actor.{Actor, Props}
 import akka.event.Logging
 import org.htmlcleaner.{HtmlCleaner, TagNode}
 import ua.home.politics.VoteDayCollector.{CollectTodaysVotes, CollectVotesByDate}
+import ua.home.politics.VoteProjectCollector.ProcessVoteProject
 
 import scalaj.http.{Http, HttpRequest, HttpResponse}
 
@@ -51,8 +52,10 @@ class VoteDayCollector extends Actor {
         project <- collectedVoteProjects
         if !voteProjectsOfDay.contains(project)
       } yield project
-
-      voteProjectsOfDay = collectedVoteProjects
+//      notProcessedProjects.foreach(
+//        project => context.actorOf(Props[VoteProjectCollector]) ! ProcessVoteProject(project)
+//      )
+      voteProjectsOfDay = voteProjectsOfDay ::: collectedVoteProjects
     })
   }
 
